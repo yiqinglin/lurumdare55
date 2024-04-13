@@ -16,26 +16,29 @@ public class Food : MonoBehaviour
 
     private FoodSlot _slot;
 
-    public void Init(FoodSlot slot) {
+    public void Init(FoodSlot slot)
+    {
         // _renderer.sprite = slot.Renderer.sprite;
         _slot = slot;
     }
-    void Awake() {
+    void Awake()
+    {
         _originalPosition = transform.position;
     }
 
     void Update()
     {
-        if(_placed) return;
-        if(!_dragging) return;
+        if (_placed) return;
+        if (!_dragging) return;
 
 
         var mousePosition = GetMousePos();
 
         transform.position = mousePosition - _offset;
-        
+
     }
-    void OnMouseDown() {
+    void OnMouseDown()
+    {
         _dragging = true;
         _source.PlayOneShot(_pickUpClip);
 
@@ -43,36 +46,41 @@ public class Food : MonoBehaviour
     }
     void Start()
     {
-        
+
     }
 
-    
+
     // private void OnTriggerEnter2D(Collider2D other) {
     //     if (other.gameObject.tag == "plate") {
     //         Debug.Log("进入盘子");
     //         // FoodTypeItem.transform.position = TargetPosition.transform.position;
     //         // if (FoodTypeItem.tag == "FoodA") {
-                
+
     //         // } 
     //         // 这里放接下来的操作
     //     } 
     // }
-    void OnMouseUp() {
-        bool flag = FindObjectOfType<MealManager>().InCreaseFood(transform.name);
-        if(Vector2.Distance(transform.position, _slot.transform.position) < 5f && flag) {
+    void OnMouseUp()
+    {
+        bool flag = FindObjectOfType<MealManager>().IncreaseFood(transform.name);
+        if (Vector2.Distance(transform.position, _slot.transform.position) < 5f && flag)
+        {
             transform.position = _slot.transform.position;
             // _slot.Placed() // 这里还要调用音效但是现在还没加
             _placed = true;
-        } else {
+        }
+        else
+        {
             transform.position = _originalPosition;
             _dragging = false;
             _source.PlayOneShot(_dropClip);
         }
 
-        
-        
+
+
     }
-    Vector2 GetMousePos() {
+    Vector2 GetMousePos()
+    {
         return Camera.main.ScreenToWorldPoint(Input.mousePosition);
     }
 }
