@@ -3,7 +3,12 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - plate
+  - FoodA
+  - FoodB
+  - FoodC
+  - FoodD
   layers:
   - Default
   - TransparentFX
