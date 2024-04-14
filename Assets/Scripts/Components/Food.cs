@@ -57,9 +57,7 @@ public class Food : MonoBehaviour
     // }
     void OnMouseUp()
     {
-        Debug.Log("get slot name" + _slot.name);
         bool flag = MealManager.Instance.IncreaseFood(gameObject.name);
-        Debug.Log("flag value" + flag);
 
         if (Vector2.Distance(transform.position, _slot.transform.position) < 5f && flag)
         {

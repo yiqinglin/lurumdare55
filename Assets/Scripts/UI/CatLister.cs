@@ -7,8 +7,6 @@ public class SummonButton : MonoBehaviour
 {
     public Text textObject;
 
-
-    // Start is called before the first frame update
     void Start()
     {
         Cat[] cats = CatManager.Instance.nextCats;
