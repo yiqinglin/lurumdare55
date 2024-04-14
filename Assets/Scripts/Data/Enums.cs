@@ -9,7 +9,7 @@ public enum Cat
     Siamese,
     TriColor,
     White,
-    Odd
+    Ginger
 }
 
 public enum Ingredient

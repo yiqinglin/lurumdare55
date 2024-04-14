@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-#pragma warning disable CS0472 // The result of the expression is always the same since a value of this type is never equal to 'null'
 
 public class MealManager : MonoBehaviour
 {
@@ -60,7 +59,7 @@ public class MealManager : MonoBehaviour
     {
         var parsedFood = parseFoodInput(food);
 
-        if (nextFoods.Count() < 2)
+        if (nextFoods?.Count() < 2)
         {
             nextFoods.Add(parsedFood);
             return true;
