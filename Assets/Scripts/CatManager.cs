@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -16,10 +17,16 @@ public class CatManager : MonoBehaviour
     // Persistent throughout a run across scenes.
     // Resetted when we're back at the Summoning scene.
     public Cat[] nextCats { get; private set; }
+    public bool showEndingScene { get; private set; }
+    public int doneWalking { get; set; }
 
     // All unique cats from this round of play.
     // Should never be resetted as long as the game is on.
-    private HashSet<Cat> catCollection = new HashSet<Cat>();
+    public HashSet<Cat> catCollection { get; private set; }
+    private float startTime;
+    private bool shouldCheckEndingScene = false;
+
+    [SerializeField] private float delayTime = 3f;
 
     // Important. Use a singleton GM so we don't create a new one
     // every time the first screen loads.
@@ -47,23 +54,67 @@ public class CatManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        catCollection = new HashSet<Cat>();
+    }
+
     public void UpdateNextCats(Cat[] cats)
     {
         // Always replace. So we don't have to be concerned about resetting.
         nextCats = cats;
+        // Also reset doneWalking array.
+        doneWalking = 0;
 
         foreach (Cat cat in nextCats)
         {
             catCollection.Add(cat);
         }
 
-        foreach (var collected in catCollection)
+        if (catCollection.Count == 5)
         {
-            Debug.Log("Collected:" + collected.ToString());
+            showEndingScene = true;
         }
     }
 
-    public HashSet<Cat> GetCatCollection() {
-        return catCollection;
+    private void Update()
+    {
+        if (shouldCheckEndingScene)
+        {
+            checkLoadEndingScene();
+        }
+    }
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "OneWithCats")
+        {
+            shouldCheckEndingScene = true;
+        }
+        else
+        {
+            shouldCheckEndingScene = false;
+        }
+    }
+
+    private void checkLoadEndingScene()
+    {
+        bool allCatsDoneWalking = nextCats.Count() == doneWalking;
+        bool doneWaiting = showEndingScene && Time.time - startTime > delayTime;
+
+        if (allCatsDoneWalking && doneWaiting && catCollection.Count() == 5)
+        {
+            SceneManager.LoadScene("EndScene");
+        }
     }
 }

@@ -13,12 +13,14 @@ public class InitCollect : MonoBehaviour
     {
         catManager = CatManager.Instance;
     }
-    void Start() {
+    void Start()
+    {
         InitChild();
     }
-    void InitChild() {
-        HashSet<Cat> Cats = catManager.GetCatCollection();
-        foreach (int i in Cats)
+    void InitChild()
+    {
+        HashSet<Cat> cats = catManager.catCollection;
+        foreach (int i in cats)
         {
             _images[i].sprite = sprites[i];
         }

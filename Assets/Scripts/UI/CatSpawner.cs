@@ -25,7 +25,6 @@ public class CatSpawner : MonoBehaviour
 
     void SpawnCat(Cat cat)
     {
-        Debug.Log("Spawning" + cat.ToString());
         GameObject catPrefab = null;
 
         // Assign prefab based on cat type

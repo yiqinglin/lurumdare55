@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/OneWithCats.unity
     guid: 2ea927c7f2f1e4f338d9eba9d61db81d
+  - enabled: 1
+    path: Assets/Scenes/EndScene.unity
+    guid: 547021b0958e74484b608089a35def62
   m_configObjects: {}

@@ -22,13 +22,6 @@ public static class CatLookup
 
     public static Cat[] GetCats(List<Ingredient> ingredients)
     {
-        Debug.Log("ingredients " + ingredients);
-
-        foreach (var item in foodToCatMap)
-        {
-            Debug.Log(item.Key.ToString());
-            Debug.Log(item.Value.ToString());
-        }
         return foodToCatMap[new HashSet<Ingredient>(ingredients)];
     }
 }

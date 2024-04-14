@@ -1,13 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 public class CatMovement : MonoBehaviour
 {
     public float moveSpeed = 5f;
     public float stopDistance = 1f;
     // public Animator animator; // Animator component for animations
+    [SerializeField] private float delayTime = 3.0f; // Time in seconds before enabling the object
 
     private Transform target;
+    private bool _stopped;
 
     public void SetTarget(Transform target)
     {
@@ -16,9 +20,12 @@ public class CatMovement : MonoBehaviour
 
     void Update()
     {
+        if (_stopped)
+        {
+            return;
+        }
         if (target != null)
         {
-            Debug.Log("trying to update");
             // Calculate distance to target
             float distance = Vector3.Distance(transform.position, target.position);
 
@@ -29,6 +36,7 @@ public class CatMovement : MonoBehaviour
             }
             else
             {
+                _stopped = true;
                 StopMovement();
                 StartEating();
             }
@@ -50,6 +58,8 @@ public class CatMovement : MonoBehaviour
     {
         // transform.rotation = Quaternion.LookRotation(target.position - transform.position); // Face the target
         moveSpeed = 0f;
+
+        CatManager.Instance.doneWalking += 1;
 
         // Update animation to idle
         // animator?.SetBool("IsWalking", false);

@@ -26,6 +26,7 @@ public class Food : MonoBehaviour
     {
         _originalPosition = transform.position;
         _renderer = GetComponent<SpriteRenderer>();
+        setSortingLayer("package");
     }
 
     void Update()
@@ -52,26 +53,37 @@ public class Food : MonoBehaviour
         // If it's already placed, don't do anything.
         if (_placed) return;
 
-        bool flag = MealManager.Instance.AddFood(gameObject.name);
-
-        Debug.Log(flag + "flag value");
-        if (Vector2.Distance(transform.position, _slot.transform.position) < 5f && flag)
+        if (Vector2.Distance(transform.position, _slot.transform.position) < 5f)
         {
-            transform.position = _slot.transform.position;
-            _slot.Placed(); // 这里还要调用音效但是现在还没加
-            _renderer.sprite = SpriteOpen;
-            _placed = true;
+            if (MealManager.Instance.AddFood(gameObject.name))
+            {
+                Debug.Log("flag value true");
+                transform.position = _slot.transform.position;
+                _slot.Placed();
+                _renderer.sprite = SpriteOpen;
+                setSortingLayer("food");
+                _placed = true;
+            }
         }
         else
         {
+            Debug.Log("failed to put down");
             transform.position = _originalPosition;
             _dragging = false;
             _source.PlayOneShot(_dropClip);
-        }
+        };
     }
+
     // 用于场景2生成食物   
-    public void SetFood() {
+    public void SetFood()
+    {
         _renderer.sprite = SpriteOpen;
+        setSortingLayer("food");
+    }
+
+    private void setSortingLayer(string layerName)
+    {
+        _renderer.sortingLayerName = layerName;
     }
     Vector2 GetMousePos()
     {

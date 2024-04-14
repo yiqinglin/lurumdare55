@@ -57,9 +57,10 @@ public class MealManager : MonoBehaviour
 
     public bool AddFood(string food)
     {
+        Debug.Log("weve been there");
         var parsedFood = parseFoodInput(food);
 
-        if (nextFoods?.Count() < 2)
+        if (nextFoods.Count() < 2)
         {
             nextFoods.Add(parsedFood);
             return true;

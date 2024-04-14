@@ -9,6 +9,7 @@ TagManager:
   - FoodB
   - FoodC
   - FoodD
+  - EndingScene
   layers:
   - Default
   - TransparentFX
@@ -43,12 +44,18 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: cats
-    uniqueID: 2569009763
+  - name: background
+    uniqueID: 3924266365
     locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: background
-    uniqueID: 3924266365
+  - name: food
+    uniqueID: 4043465069
+    locked: 0
+  - name: package
+    uniqueID: 31997191
+    locked: 0
+  - name: cats
+    uniqueID: 2569009763
     locked: 0
