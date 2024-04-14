@@ -35,8 +35,8 @@ public class Food : MonoBehaviour
         var mousePosition = GetMousePos();
 
         transform.position = mousePosition - _offset;
-
     }
+
     void OnMouseDown()
     {
         _dragging = true;
@@ -57,8 +57,12 @@ public class Food : MonoBehaviour
     // }
     void OnMouseUp()
     {
-        bool flag = MealManager.Instance.IncreaseFood(gameObject.name);
+        // If it's already placed, don't do anything.
+        if (_placed) return;
 
+        bool flag = MealManager.Instance.AddFood(gameObject.name);
+
+        Debug.Log(flag + "flag value");
         if (Vector2.Distance(transform.position, _slot.transform.position) < 5f && flag)
         {
             transform.position = _slot.transform.position;

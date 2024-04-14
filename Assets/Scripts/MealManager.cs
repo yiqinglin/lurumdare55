@@ -56,9 +56,9 @@ public class MealManager : MonoBehaviour
         }
     }
 
-    public bool IncreaseFood(string food)
+    public bool AddFood(string food)
     {
-        Enum.TryParse(food, out Ingredient parsedFood);
+        var parsedFood = parseFoodInput(food);
 
         if (nextFoods.Count() < 2)
         {
@@ -69,5 +69,25 @@ public class MealManager : MonoBehaviour
         {
             return false;
         }
+    }
+
+    // Not used. Keeping around just in case.
+    public bool RemoveFood(string food)
+    {
+        var parsedFood = parseFoodInput(food);
+        if (nextFoods.Contains(parsedFood))
+        {
+            nextFoods.Remove(parsedFood);
+            return true;
+        }
+
+        return false;
+    }
+
+    private Ingredient parseFoodInput(string food)
+    {
+        // If can't match this returns the first item in Ingreident enum.
+        Enum.TryParse(food, out Ingredient parsedFood);
+        return parsedFood;
     }
 }
