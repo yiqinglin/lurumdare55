@@ -25,7 +25,8 @@ public class FoodManager : MonoBehaviour
 
             // Identifiable name of the food. So it can be parsed to enum which we track in GM.
             spawnedFood.name = ingredientList[i].ToString();
-
+            // SpriteRenderer _renderer = _foodOpenPrefabs[i].Renderer;
+            spawnedFood.SpriteOpen = _foodPrefabs[i].SpriteOpen;
             spawnedFood.Init(spawnedSlot);
         }
     }

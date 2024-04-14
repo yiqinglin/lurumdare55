@@ -14,7 +14,7 @@ public enum Cat
 
 public enum Ingredient
 {
-    Grass,
+    Grass, //实际是猫粮dry
     CannedFood,
     DriedFish,
     Slime

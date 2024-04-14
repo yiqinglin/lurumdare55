@@ -62,4 +62,8 @@ public class CatManager : MonoBehaviour
             Debug.Log("Collected:" + collected.ToString());
         }
     }
+
+    public HashSet<Cat> GetCatCollection() {
+        return catCollection;
+    }
 }

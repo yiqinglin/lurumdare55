@@ -32,4 +32,8 @@ public class AttractCats : MonoBehaviour
         // Only loads the next scene if there's at least one ingredient selected.
         SceneManager.LoadScene("OneWithCats");
     }
+
+    public void EableEnding() {
+        
+    }
 }
