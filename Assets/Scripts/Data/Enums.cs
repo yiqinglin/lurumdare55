@@ -1,15 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public enum Ingredient
-{
-    Grass,
-    CannedFood,
-    DriedFish,
-    Slime
-    // Add more ingredients here
-}
+using System.ComponentModel;
 
 public enum Cat
 {
@@ -19,3 +11,12 @@ public enum Cat
     White,
     Odd
 }
+
+public enum Ingredient
+{
+    Grass,
+    CannedFood,
+    DriedFish,
+    Slime
+}
+

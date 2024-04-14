@@ -1,104 +1,73 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+#pragma warning disable CS0472 // The result of the expression is always the same since a value of this type is never equal to 'null'
 
 public class MealManager : MonoBehaviour
 {
+    private static MealManager _instance;
     // 状态管理，判断盘子里有什么饭以及供Food脚本调用判断能不能继续加
-    // 用List在add的时候会报错，不得已用两个变量存
-    private string food1 = "";
-    private string food2 = "";
+    public List<Ingredient> nextFoods { get; private set; }
 
-    private Cat[] cats = new Cat[2];
-
-    void Start()
+    // Important. Use a singleton MealsManager so we don't create a new one
+    // every time the first screen loads.
+    public static MealManager Instance
     {
-        Initialize();
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = FindObjectOfType<MealManager>();
+            }
+            return _instance;
+        }
     }
 
-    void Initialize()
+    private void Awake()
     {
-        Debug.Log("initializing");
-        // Reset everything. Probably don't need as the previous game object
-        // always destroys itself on load.
-        food1 = "";
-        food2 = "";
-        cats = new Cat[2];
+        if (_instance != null && _instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            DontDestroyOnLoad(gameObject);
+        }
+    }
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "Summoning")
+        {
+            nextFoods = new List<Ingredient>();
+        }
     }
 
     public bool IncreaseFood(string food)
     {
-        Debug.Log(" 返回的什么" + food);
-        if (food1 == "")
+        Enum.TryParse(food, out Ingredient parsedFood);
+
+        if (nextFoods.Count() < 2)
         {
-            food1 = food;
-        }
-        else if (food2 == "")
-        {
-            food2 = food;
+            nextFoods.Add(parsedFood);
+            return true;
         }
         else
         {
             return false;
         }
-        return true;
-    }
-
-    // 计算来的是什么猫猫
-    public Cat[] GetCatsBasedOnFood()
-    {
-        if (food1 == "Food 1(Clone)")
-        {
-            cats[0] = Cat.Black;
-            if (food2 == "Food 2(Clone)")
-            {
-                cats[1] = Cat.Siamese;
-            }
-            else if (food2 == "Food 3(Clone)")
-            {
-                cats[1] = Cat.TriColor;
-            }
-            else if (food2 == "Food 3(Clone)")
-            {
-                cats[1] = Cat.White;
-            }
-        }
-        else if (food1 == "Food 2(Clone)")
-        {
-            if (food2 == "Food 1(Clone)")
-            {
-                cats[0] = Cat.Black;
-                cats[1] = Cat.Siamese;
-            }
-            else if (food2 == "Food 3(Clone)")
-            {
-                cats[0] = Cat.Siamese;
-                cats[1] = Cat.Odd;
-
-            }
-        }
-        else if (food1 == "Food 3(Clone)")
-        {
-            if (food2 == "Food 1(Clone)")
-            {
-                cats[0] = Cat.Black;
-                cats[1] = Cat.TriColor;
-            }
-            else if (food2 == "Food 2(Clone)")
-            {
-                cats[0] = Cat.Siamese;
-                cats[1] = Cat.Odd;
-
-            }
-        }
-        else if (food1 == "Food 4(Clone)")
-        {
-            if (food2 == "Food 1(Clone)")
-            {
-                cats[0] = Cat.White;
-            }
-        }
-
-        return cats;
     }
 }

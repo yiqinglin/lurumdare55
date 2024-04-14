@@ -44,11 +44,6 @@ public class Food : MonoBehaviour
 
         _offset = GetMousePos() - (Vector2)transform.position;
     }
-    void Start()
-    {
-
-    }
-
 
     // private void OnTriggerEnter2D(Collider2D other) {
     //     if (other.gameObject.tag == "plate") {
@@ -62,7 +57,10 @@ public class Food : MonoBehaviour
     // }
     void OnMouseUp()
     {
-        bool flag = FindObjectOfType<MealManager>().IncreaseFood(transform.name);
+        Debug.Log("get slot name" + _slot.name);
+        bool flag = MealManager.Instance.IncreaseFood(gameObject.name);
+        Debug.Log("flag value" + flag);
+
         if (Vector2.Distance(transform.position, _slot.transform.position) < 5f && flag)
         {
             transform.position = _slot.transform.position;
@@ -75,10 +73,8 @@ public class Food : MonoBehaviour
             _dragging = false;
             _source.PlayOneShot(_dropClip);
         }
-
-
-
     }
+
     Vector2 GetMousePos()
     {
         return Camera.main.ScreenToWorldPoint(Input.mousePosition);

@@ -11,7 +11,7 @@ public class SummonButton : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Cat[] cats = GameManager.Instance.GetNextCats();
+        Cat[] cats = CatManager.Instance.nextCats;
 
         string textToDisplay = "";
 
