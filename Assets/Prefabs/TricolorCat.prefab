@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4897276174082550429}
   - component: {fileID: 6771652837513749693}
+  - component: {fileID: 8548283225934830780}
   m_Layer: 0
   m_Name: TricolorCat
   m_TagString: Untagged
@@ -47,8 +48,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 2
-  stopDistance: 0.001
+  stopDistance: 0.1
   delayTime: 3
+  bobbingScript: {fileID: 8548283225934830780}
+--- !u!114 &8548283225934830780
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 587452236611457485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e0689cbb0174447eb6fa9c5e46bb278, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  headTransform: {fileID: 0}
+  bobSpeed: 8
+  bobAmount: 0.1
 --- !u!1 &5333183936081920749
 GameObject:
   m_ObjectHideFlags: 0
@@ -120,7 +137,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1725957533
-  m_SortingLayer: -1
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: dd34ebb2479394384839d2f1779e78cc, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -204,7 +221,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1725957533
-  m_SortingLayer: -1
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 664d3b82e5c4542de89677ca54d6e07a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

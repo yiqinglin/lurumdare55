@@ -9,9 +9,18 @@ public class CatMovement : MonoBehaviour
     public float stopDistance = 1f;
     // public Animator animator; // Animator component for animations
     [SerializeField] private float delayTime = 3.0f; // Time in seconds before enabling the object
-
+    public MonoBehaviour bobbingScript;
     private Transform target;
     private bool _stopped;
+
+    void Start()
+    {
+
+        if (bobbingScript != null)
+        {
+            bobbingScript.enabled = false;
+        }
+    }
 
     public void SetTarget(Transform target)
     {
@@ -68,7 +77,11 @@ public class CatMovement : MonoBehaviour
     void StartEating()
     {
         // Update animation to eating
-        // animator?.SetBool("IsEating", true);
+
+        if (bobbingScript != null)
+        {
+            bobbingScript.enabled = true;
+        }
     }
 }
 

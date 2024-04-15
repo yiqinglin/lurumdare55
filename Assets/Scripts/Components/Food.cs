@@ -60,11 +60,11 @@ public class Food : MonoBehaviour
     void OnMouseUp()
     {
         string currentSceneName = SceneManager.GetActiveScene().name;
+
         if (currentSceneName != "Summoning")
         {
             return;
         }
-        Debug.Log(name);
         // If it's already placed, don't do anything.
         if (_placed) return;
 
@@ -101,7 +101,6 @@ public class Food : MonoBehaviour
         _renderer.sortingLayerName = layerName;
         if (layerName == "food")
         {
-            Debug.Log("are we here" + name);
             switch (name)
             {
                 case "CannedFood":
