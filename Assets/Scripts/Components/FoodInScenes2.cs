@@ -19,10 +19,13 @@ public class FoodInScenes2 : MonoBehaviour
 
     void Spawn()
     {
+        Ingredient[] ingredientList = (Ingredient[])Ingredient.GetValues(typeof(Ingredient));
         List<Ingredient> foodList = mealManager.nextFoods;
-        for (int i = 0; i < foodList.Count; i++) {
+        for (int i = 0; i < foodList.Count; i++)
+        {
             int index = (int)foodList[i];
             var spawnedFood = Instantiate(_foodPrefabs[index], _slotParent.GetChild(index).position, Quaternion.identity);
+            spawnedFood.name = ingredientList[index].ToString();
             spawnedFood.SetFood();
         }
     }

@@ -5,7 +5,6 @@ using UnityEngine;
 public class CatSpawner : MonoBehaviour
 {
     public Cat[] catsToSpawn = new Cat[] { Cat.Black };
-    public Transform target; // Transform of the target the cats walk towards
 
     public GameObject blackCatPrefab;
     public GameObject whiteCatPrefab;
@@ -49,8 +48,8 @@ public class CatSpawner : MonoBehaviour
 
         if (catPrefab != null)
         {
-            // Get a random edge position on the scene
-            Vector3 spawnPoint = GetRandomEdgePosition(cat);
+            // Get a edge position on the scene
+            Vector3 spawnPoint = GetStartingPosition(cat);
 
             // Spawn the cat and set its target
             GameObject catInstance = Instantiate(catPrefab, spawnPoint, Quaternion.identity);
@@ -58,41 +57,23 @@ public class CatSpawner : MonoBehaviour
         }
     }
 
-    Vector3 GetRandomEdgePosition(Cat cat)
+    Vector3 GetStartingPosition(Cat cat)
     {
-        float randomX = Random.Range(Camera.main.ViewportToWorldPoint(new Vector3(0, 0, 0)).x,
-                                    Camera.main.ViewportToWorldPoint(new Vector3(1, 0, 0)).x);
-        float randomY = Random.Range(Camera.main.ViewportToWorldPoint(new Vector3(0, 0, 0)).y,
-                                    Camera.main.ViewportToWorldPoint(new Vector3(0, 1, 0)).y);
-
-        float randomZ = 0;
-
-
-        // Override per cat.
-        // Each cat has its own specific edge, so they dont cross each other when entering. 
+        // Each cat has its own specific edge, so they dont cross each other when entering.
         switch (cat)
         {
             case Cat.Black:
-                // Top edge.
-                randomY = Camera.main.ViewportToWorldPoint(new Vector3(0, 1, 0)).y;
-                break;
+                return Camera.main.ViewportToWorldPoint(new Vector3(0.7f, 1, 8));
             case Cat.Ginger:
-                // Right edge.
-                randomX = Camera.main.ViewportToWorldPoint(new Vector3(1, 0, 0)).x;
-                break;
+                Debug.Log("here " + Camera.main.ViewportToWorldPoint(new Vector3(1, 0.5f, 8)));
+                return Camera.main.ViewportToWorldPoint(new Vector3(1, 0.5f, 8));
             case Cat.White:
-                // Bottom edge.
-                randomY = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, 0)).y;
-                break;
+                return Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 0, 8));
             case Cat.TriColor:
-                randomY = Camera.main.ViewportToWorldPoint(new Vector3(0, 1, 0)).y;
-                break;
+                return Camera.main.ViewportToWorldPoint(new Vector3(0.32f, 1, 8));
             case Cat.Siamese:
-                // Left edge.
-                randomX = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, 0)).x;
-                break;
+            default:
+                return Camera.main.ViewportToWorldPoint(new Vector3(0, 0.25f, 8));
         }
-
-        return new Vector3(randomX, randomY, randomZ);
     }
 }

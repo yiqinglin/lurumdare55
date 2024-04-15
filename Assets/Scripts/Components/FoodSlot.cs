@@ -8,17 +8,18 @@ public class FoodSlot : MonoBehaviour
     [SerializeField] private AudioSource _source;
     [SerializeField] private AudioClip _completeClip;
 
-    public void Placed() {
+    public void Placed()
+    {
         _source.PlayOneShot(_completeClip);
     }
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }

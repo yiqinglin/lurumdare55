@@ -50,10 +50,11 @@ public class Food : MonoBehaviour
 
     void OnMouseUp()
     {
+        Debug.Log(name);
         // If it's already placed, don't do anything.
         if (_placed) return;
 
-        if (Vector2.Distance(transform.position, _slot.transform.position) < 5f)
+        if (Vector2.Distance(transform.position, _slot.transform.position) < 3f)
         {
             if (MealManager.Instance.AddFood(gameObject.name))
             {
@@ -84,6 +85,26 @@ public class Food : MonoBehaviour
     private void setSortingLayer(string layerName)
     {
         _renderer.sortingLayerName = layerName;
+        if (layerName == "food")
+        {
+            Debug.Log("are we here" + name);
+            switch (name)
+            {
+                case "CannedFood":
+                    _renderer.sortingOrder = 3;
+                    break;
+                case "DriedFish":
+                    _renderer.sortingOrder = 2;
+                    break;
+                case "DryFood":
+                    _renderer.sortingOrder = 0;
+                    break;
+                case "FoodTube":
+                    _renderer.sortingOrder = 2;
+                    break;
+            }
+
+        }
     }
     Vector2 GetMousePos()
     {

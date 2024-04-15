@@ -1006,7 +1006,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   catsToSpawn: 
-  target: {fileID: 0}
   blackCatPrefab: {fileID: 5441134435771156744, guid: c510f7947848e45e8b135d36f769937c, type: 3}
   whiteCatPrefab: {fileID: 3271212378392956870, guid: 083d5dbaa94074677bed5234112ecaf7, type: 3}
   siameseCatPrefab: {fileID: 3157906203492407780, guid: ae1583290d9c047e5850b92a03212418, type: 3}

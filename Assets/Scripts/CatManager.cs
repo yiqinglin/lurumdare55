@@ -97,9 +97,11 @@ public class CatManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (scene.name == "OneWithCats")
+        // if (scene.name == "OneWithCats")
+        if (scene.name == "Summoning")
         {
-            shouldCheckEndingScene = true;
+            // shouldCheckEndingScene = true;
+            checkLoadEndingScene();
         }
         else
         {
@@ -109,10 +111,10 @@ public class CatManager : MonoBehaviour
 
     private void checkLoadEndingScene()
     {
-        bool allCatsDoneWalking = nextCats.Count() == doneWalking;
-        bool doneWaiting = showEndingScene && Time.time - startTime > delayTime;
+        // bool allCatsDoneWalking = nextCats.Count() == doneWalking;
+        // bool doneWaiting = showEndingScene && Time.time - startTime > delayTime;
 
-        if (allCatsDoneWalking && doneWaiting && catCollection.Count() == 5)
+        if (catCollection != null && catCollection.Count() == 5)
         {
             SceneManager.LoadScene("EndScene");
         }
