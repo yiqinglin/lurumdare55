@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Food : MonoBehaviour
 {
@@ -27,6 +28,7 @@ public class Food : MonoBehaviour
         _originalPosition = transform.position;
         _renderer = GetComponent<SpriteRenderer>();
         setSortingLayer("package");
+
     }
 
     void Update()
@@ -42,6 +44,13 @@ public class Food : MonoBehaviour
 
     void OnMouseDown()
     {
+        string currentSceneName = SceneManager.GetActiveScene().name;
+
+        if (currentSceneName != "Summoning")
+        {
+            return;
+        }
+
         _dragging = true;
         _source.PlayOneShot(_pickUpClip);
 
@@ -50,6 +59,11 @@ public class Food : MonoBehaviour
 
     void OnMouseUp()
     {
+        string currentSceneName = SceneManager.GetActiveScene().name;
+        if (currentSceneName != "Summoning")
+        {
+            return;
+        }
         Debug.Log(name);
         // If it's already placed, don't do anything.
         if (_placed) return;
