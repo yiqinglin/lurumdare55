@@ -35,7 +35,6 @@ public class Food : MonoBehaviour
         if (_placed) return;
         if (!_dragging) return;
 
-
         var mousePosition = GetMousePos();
 
         transform.position = mousePosition - _offset;
@@ -43,6 +42,8 @@ public class Food : MonoBehaviour
 
     void OnMouseEnter()
     {
+        // If food is already placed, don't show the hand cursor as it can't be moved anymore.
+        if (_placed) return;
         Cursor.SetCursor(handCursor, Vector2.zero, CursorMode.Auto);
     }
 
@@ -54,6 +55,8 @@ public class Food : MonoBehaviour
         {
             return;
         }
+
+        if (_placed) return;
 
         _dragging = true;
         Cursor.SetCursor(pickupCursor, Vector2.zero, CursorMode.Auto);
@@ -107,7 +110,6 @@ public class Food : MonoBehaviour
         Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
     }
 
-    // 用于场景2生成食物   
     public void SetFood()
     {
         _renderer.sprite = SpriteOpen;

@@ -7,7 +7,7 @@ public enum Cat
 {
     Black,
     Siamese,
-    TriColor,
+    Calico,
     White,
     Ginger
 }

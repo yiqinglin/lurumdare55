@@ -10,7 +10,7 @@ public class CatSpawner : MonoBehaviour
     public GameObject whiteCatPrefab;
     public GameObject siameseCatPrefab;
     public GameObject gingerCatPrefab;
-    public GameObject tricolorCatPrefab;
+    public GameObject CalicoCatPrefab;
 
     void Start()
     {
@@ -41,8 +41,8 @@ public class CatSpawner : MonoBehaviour
             case Cat.Ginger:
                 catPrefab = gingerCatPrefab;
                 break;
-            case Cat.TriColor:
-                catPrefab = tricolorCatPrefab;
+            case Cat.Calico:
+                catPrefab = CalicoCatPrefab;
                 break;
         }
 
@@ -69,7 +69,7 @@ public class CatSpawner : MonoBehaviour
                 return Camera.main.ViewportToWorldPoint(new Vector3(1, 0.5f, 8));
             case Cat.White:
                 return Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 0, 8));
-            case Cat.TriColor:
+            case Cat.Calico:
                 return Camera.main.ViewportToWorldPoint(new Vector3(0.32f, 1, 8));
             case Cat.Siamese:
             default:

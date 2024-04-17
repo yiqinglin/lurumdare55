@@ -13,7 +13,7 @@ public static class CatLookup
         { new HashSet<Ingredient>{Ingredient.FoodTube}, new Cat[] { Cat.White } },
         { new HashSet<Ingredient>{Ingredient.DryFood, Ingredient.DriedFish}, new Cat[] { Cat.Black, Cat.Siamese } },
         { new HashSet<Ingredient>{Ingredient.DryFood, Ingredient.CannedFood
-}, new Cat[] { Cat.Black, Cat.TriColor } },
+}, new Cat[] { Cat.Black, Cat.Calico } },
         { new HashSet<Ingredient>{ Ingredient.DryFood, Ingredient.FoodTube }, new Cat[] { Cat.Black, Cat.White } },
         { new HashSet<Ingredient>{ Ingredient.DriedFish, Ingredient.CannedFood }, new Cat[] { Cat.Siamese, Cat.Ginger } },
         { new HashSet<Ingredient>{ Ingredient.DriedFish, Ingredient.FoodTube }, new Cat[] { Cat.Ginger } },
