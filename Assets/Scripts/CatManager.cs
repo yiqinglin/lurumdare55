@@ -52,10 +52,7 @@ public class CatManager : MonoBehaviour
         {
             DontDestroyOnLoad(gameObject);
         }
-    }
 
-    private void Start()
-    {
         catCollection = new HashSet<Cat>();
     }
 

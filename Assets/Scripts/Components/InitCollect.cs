@@ -17,7 +17,6 @@ public class InitCollect : MonoBehaviour
     {
         InitChild();
     }
-
     void InitChild()
     {
         HashSet<Cat> cats = catManager.catCollection;
