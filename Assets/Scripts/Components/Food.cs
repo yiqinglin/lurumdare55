@@ -5,9 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class Food : MonoBehaviour
 {
-    // public GameObject FoodTypeItem;
-    // public GameObject TargetPosition;
-    // public GameObject Plate;
     [SerializeField] private SpriteRenderer _renderer;
     // [SerializeField] private Sprite _sprite;
     public Sprite SpriteOpen;
@@ -16,13 +13,15 @@ public class Food : MonoBehaviour
 
     private bool _dragging, _placed;
     private Vector2 _offset, _originalPosition;
-
+    public Texture2D handCursor;
+    public Texture2D pickupCursor;
     private FoodSlot _slot;
 
     public void Init(FoodSlot slot)
     {
         _slot = slot;
     }
+
     void Awake()
     {
         _originalPosition = transform.position;
@@ -42,6 +41,11 @@ public class Food : MonoBehaviour
         transform.position = mousePosition - _offset;
     }
 
+    void OnMouseEnter()
+    {
+        Cursor.SetCursor(handCursor, Vector2.zero, CursorMode.Auto);
+    }
+
     void OnMouseDown()
     {
         string currentSceneName = SceneManager.GetActiveScene().name;
@@ -52,6 +56,7 @@ public class Food : MonoBehaviour
         }
 
         _dragging = true;
+        Cursor.SetCursor(pickupCursor, Vector2.zero, CursorMode.Auto);
         _source.PlayOneShot(_pickUpClip);
 
         _offset = GetMousePos() - (Vector2)transform.position;
@@ -78,6 +83,8 @@ public class Food : MonoBehaviour
                 _renderer.sprite = SpriteOpen;
                 setSortingLayer("food");
                 _placed = true;
+                _dragging = false;
+                UnsetCursor();
             }
         }
         else
@@ -85,8 +92,19 @@ public class Food : MonoBehaviour
             Debug.Log("failed to put down");
             transform.position = _originalPosition;
             _dragging = false;
+            UnsetCursor();
             _source.PlayOneShot(_dropClip);
         };
+    }
+
+    void OnMouseExit()
+    {
+        UnsetCursor();
+    }
+
+    private void UnsetCursor()
+    {
+        Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
     }
 
     // 用于场景2生成食物   

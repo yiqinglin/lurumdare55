@@ -103,6 +103,8 @@ MonoBehaviour:
   _source: {fileID: 0}
   _pickUpClip: {fileID: 0}
   _dropClip: {fileID: 0}
+  handCursor: {fileID: 2800000, guid: 0b416111f189d40649b3d27dddec9b92, type: 3}
+  pickupCursor: {fileID: 2800000, guid: 54ced6575f2cd45a8ae5f7e50acef041, type: 3}
 --- !u!61 &5851128395408501067
 BoxCollider2D:
   m_ObjectHideFlags: 0
