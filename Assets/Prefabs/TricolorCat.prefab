@@ -95,7 +95,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e8f7aa66af904cbfbdcb8e4221e2c53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeDuration: 0.2
+  fadeDuration: 3
   _purringClip: {fileID: 8300000, guid: 8b8269924aa4149cdbd33926ebee2b3e, type: 3}
 --- !u!82 &3319468615007988746
 AudioSource:

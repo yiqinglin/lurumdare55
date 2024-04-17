@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 public class Food : MonoBehaviour
 {
     [SerializeField] private SpriteRenderer _renderer;
-    // [SerializeField] private Sprite _sprite;
     public Sprite SpriteOpen;
     [SerializeField] private AudioSource _source;
     [SerializeField] private AudioClip _pickUpClip, _dropClip;
@@ -42,21 +41,14 @@ public class Food : MonoBehaviour
 
     void OnMouseEnter()
     {
-        // If food is already placed, don't show the hand cursor as it can't be moved anymore.
-        if (_placed) return;
+        if (shouldDisableCursorEvent()) return;
+
         Cursor.SetCursor(handCursor, Vector2.zero, CursorMode.Auto);
     }
 
     void OnMouseDown()
     {
-        string currentSceneName = SceneManager.GetActiveScene().name;
-
-        if (currentSceneName != "Summoning")
-        {
-            return;
-        }
-
-        if (_placed) return;
+        if (shouldDisableCursorEvent()) return;
 
         _dragging = true;
         Cursor.SetCursor(pickupCursor, Vector2.zero, CursorMode.Auto);
@@ -67,14 +59,7 @@ public class Food : MonoBehaviour
 
     void OnMouseUp()
     {
-        string currentSceneName = SceneManager.GetActiveScene().name;
-
-        if (currentSceneName != "Summoning")
-        {
-            return;
-        }
-        // If it's already placed, don't do anything.
-        if (_placed) return;
+        if (shouldDisableCursorEvent()) return;
 
         if (Vector2.Distance(transform.position, _slot.transform.position) < 3f)
         {
@@ -105,11 +90,26 @@ public class Food : MonoBehaviour
         UnsetCursor();
     }
 
+    private bool shouldDisableCursorEvent()
+    {
+        string currentSceneName = SceneManager.GetActiveScene().name;
+
+        // If food is already placed, don't show the hand cursor as it can't be moved anymore.
+        // In scene two always dsiable cursor activity.
+        if (currentSceneName != "Summoning" || _placed)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
     private void UnsetCursor()
     {
         Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
     }
 
+    // For scene 2.
     public void SetFood()
     {
         _renderer.sprite = SpriteOpen;
@@ -139,6 +139,7 @@ public class Food : MonoBehaviour
 
         }
     }
+
     Vector2 GetMousePos()
     {
         return Camera.main.ScreenToWorldPoint(Input.mousePosition);

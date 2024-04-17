@@ -1,18 +1,14 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI; // Required for working with UI elements (check if necessary)
 
 public class PetCatAudio : MonoBehaviour
 {
-    public float fadeDuration = 0.2f; // Duration of audio fade in/out (adjust as needed)
+    [SerializeField] private float fadeDuration = 3f;
 
     [SerializeField] private AudioClip _purringClip;
 
     private AudioSource audioSource;
-    // public Texture2D handCursor; // Texture for the hand cursor (replace with your texture)
-    // private CursorMode originalCursor; // Stores the original cursor mode
-    private bool isHovering; // Flag to track hover state
+    private bool isHovering;
 
     void Start()
     {
@@ -21,17 +17,15 @@ public class PetCatAudio : MonoBehaviour
         {
             Debug.LogError("PetCatAudio: Missing AudioSource component! Please add one.");
         }
-        // originalCursor = Cursor.current; // Store the original cursor mode
     }
 
     void OnMouseEnter()
     {
-        isHovering = true; // Set hover state to true on enter
+        isHovering = true;
         if (_purringClip)
         {
             Debug.Log("got in");
-            StartCoroutine(FadeInAndRepeatAudio(_purringClip, fadeDuration));
-            // Cursor.SetCursor(handCursor, Vector2.zero, CursorMode.Auto); // Set hand cursor
+            StartCoroutine(RepeatAudio(_purringClip));
         }
     }
 
@@ -40,19 +34,12 @@ public class PetCatAudio : MonoBehaviour
         isHovering = false;
     }
 
-    IEnumerator FadeInAndRepeatAudio(AudioClip clip, float duration)
+    IEnumerator RepeatAudio(AudioClip clip)
     {
-        Debug.Log("have we ever been here");
         audioSource.clip = clip;
-        audioSource.volume = 0f;
-        audioSource.loop = true; // Set loop to true for continuous playback
+        audioSource.loop = true;
+        audioSource.volume = 1;
         audioSource.Play();
-
-        while (audioSource.volume < 1f)
-        {
-            audioSource.volume += Time.deltaTime / duration;
-            yield return null;
-        }
 
         // Wait for audio to finish fading in before checking for mouse exit
         while (audioSource.isPlaying)
@@ -72,13 +59,12 @@ public class PetCatAudio : MonoBehaviour
     {
         while (audioSource.isPlaying)
         {
-            if (!isHovering) // Check if mouse is still hovering
+            if (!isHovering)
             {
                 break;
             }
             yield return null;
         }
-
 
         while (audioSource.volume > 0f)
         {
